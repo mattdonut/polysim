@@ -1,0 +1,13 @@
+package polysim;
+
+message SPolymer {
+	repeated double x = 1;
+	repeated double y = 2;
+	repeated double z = 3;
+}
+message SSystem {
+	repeated SPolymer poly = 1;
+}
+message SSim {
+	repeated SSystem system =1;
+}
