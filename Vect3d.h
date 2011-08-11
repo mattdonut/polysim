@@ -1,8 +1,11 @@
 #ifndef VECT3D_H
 #define VECT3D_H
 
-//#include <tr1/type_traits>
-#include <bits/cpp_type_traits.h>
+#if defined(_MSC_VER)
+	#include <type_traits>
+#else
+	#include <bits/cpp_type_traits.h>
+#endif
 //#include <g++-3/std/cpp_type_traits.h>
 #include <sstream>
 //#include "defs.h"
