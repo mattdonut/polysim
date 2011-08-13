@@ -16,6 +16,9 @@ void readSaveSim(Sim* sim, polysim::SSim& save);
 int main(int argc, char* argv[]){
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
 	int numsteps = 100;
+	if(argc > 2){
+		numsteps = atoi(argv[2]);
+	}
 	int start_step = 0;
 	//ofstream outfile("bdata.dat", ios::out | ios::binary | ios::trunc);
 	//cout << sizeof(vect_d);
@@ -72,9 +75,9 @@ int main(int argc, char* argv[]){
 
 	sim->initSys();
 	sim->sol->SetStepSize(.003);
-	cout << "Going for " << numsteps-start_step << " steps" << endl;
+	cout << "Going for " << numsteps << " steps(" << start_step << "-"<<start_step+numsteps<<")"<< endl;
 	//output << "[";
-	for(int steps=start_step; steps < numsteps; steps++){
+	for(int steps=start_step; steps < start_step+numsteps; steps++){
 		cout<<"Starting steps..."<<endl;
 		sim->takeSteps(100);
 		//outputPolys(sim->sys, output);
