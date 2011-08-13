@@ -385,6 +385,13 @@ class Settings : public ::google::protobuf::Message {
   
   // accessors -------------------------------------------------------
   
+  // required double h = 7;
+  inline bool has_h() const;
+  inline void clear_h();
+  static const int kHFieldNumber = 7;
+  inline double h() const;
+  inline void set_h(double value);
+  
   // required double sk = 1;
   inline bool has_sk() const;
   inline void clear_sk();
@@ -429,6 +436,8 @@ class Settings : public ::google::protobuf::Message {
   
   // @@protoc_insertion_point(class_scope:polysim.Settings)
  private:
+  inline void set_has_h();
+  inline void clear_has_h();
   inline void set_has_sk();
   inline void clear_has_sk();
   inline void set_has_pk();
@@ -444,6 +453,7 @@ class Settings : public ::google::protobuf::Message {
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
+  double h_;
   double sk_;
   double pk_;
   double stiffk_;
@@ -452,7 +462,7 @@ class Settings : public ::google::protobuf::Message {
   ::google::protobuf::int32 numpin_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
   
   friend void  protobuf_AddDesc_polysim_2eproto();
   friend void protobuf_AssignDesc_polysim_2eproto();
@@ -634,15 +644,37 @@ inline ::polysim::Settings* SSim::release_settings() {
 
 // Settings
 
-// required double sk = 1;
-inline bool Settings::has_sk() const {
+// required double h = 7;
+inline bool Settings::has_h() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void Settings::set_has_sk() {
+inline void Settings::set_has_h() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void Settings::clear_has_sk() {
+inline void Settings::clear_has_h() {
   _has_bits_[0] &= ~0x00000001u;
+}
+inline void Settings::clear_h() {
+  h_ = 0;
+  clear_has_h();
+}
+inline double Settings::h() const {
+  return h_;
+}
+inline void Settings::set_h(double value) {
+  set_has_h();
+  h_ = value;
+}
+
+// required double sk = 1;
+inline bool Settings::has_sk() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void Settings::set_has_sk() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Settings::clear_has_sk() {
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline void Settings::clear_sk() {
   sk_ = 0;
@@ -658,13 +690,13 @@ inline void Settings::set_sk(double value) {
 
 // required double pk = 2;
 inline bool Settings::has_pk() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void Settings::set_has_pk() {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
 }
 inline void Settings::clear_has_pk() {
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline void Settings::clear_pk() {
   pk_ = 0;
@@ -680,13 +712,13 @@ inline void Settings::set_pk(double value) {
 
 // required double stiffk = 3;
 inline bool Settings::has_stiffk() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void Settings::set_has_stiffk() {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
 }
 inline void Settings::clear_has_stiffk() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void Settings::clear_stiffk() {
   stiffk_ = 0;
@@ -702,13 +734,13 @@ inline void Settings::set_stiffk(double value) {
 
 // required double shiftk = 4;
 inline bool Settings::has_shiftk() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+  return (_has_bits_[0] & 0x00000010u) != 0;
 }
 inline void Settings::set_has_shiftk() {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000010u;
 }
 inline void Settings::clear_has_shiftk() {
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void Settings::clear_shiftk() {
   shiftk_ = 0;
@@ -724,13 +756,13 @@ inline void Settings::set_shiftk(double value) {
 
 // required double oseenk = 5;
 inline bool Settings::has_oseenk() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return (_has_bits_[0] & 0x00000020u) != 0;
 }
 inline void Settings::set_has_oseenk() {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000020u;
 }
 inline void Settings::clear_has_oseenk() {
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline void Settings::clear_oseenk() {
   oseenk_ = 0;
@@ -746,13 +778,13 @@ inline void Settings::set_oseenk(double value) {
 
 // required int32 numpin = 6;
 inline bool Settings::has_numpin() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
+  return (_has_bits_[0] & 0x00000040u) != 0;
 }
 inline void Settings::set_has_numpin() {
-  _has_bits_[0] |= 0x00000020u;
+  _has_bits_[0] |= 0x00000040u;
 }
 inline void Settings::clear_has_numpin() {
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline void Settings::clear_numpin() {
   numpin_ = 0;

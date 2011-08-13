@@ -88,7 +88,8 @@ void protobuf_AssignDesc_polysim_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SSim));
   Settings_descriptor_ = file->message_type(3);
-  static const int Settings_offsets_[6] = {
+  static const int Settings_offsets_[7] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Settings, h_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Settings, sk_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Settings, pk_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Settings, stiffk_),
@@ -153,10 +154,10 @@ void protobuf_AddDesc_polysim_2eproto() {
     "x\030\001 \003(\001\022\t\n\001y\030\002 \003(\001\022\t\n\001z\030\003 \003(\001\"*\n\007SSystem"
     "\022\037\n\004poly\030\001 \003(\0132\021.polysim.SPolymer\"M\n\004SSi"
     "m\022 \n\006system\030\001 \003(\0132\020.polysim.SSystem\022#\n\010s"
-    "ettings\030\002 \002(\0132\021.polysim.Settings\"b\n\010Sett"
-    "ings\022\n\n\002sk\030\001 \002(\001\022\n\n\002pk\030\002 \002(\001\022\016\n\006stiffk\030\003"
-    " \002(\001\022\016\n\006shiftk\030\004 \002(\001\022\016\n\006oseenk\030\005 \002(\001\022\016\n\006"
-    "numpin\030\006 \002(\005", 292);
+    "ettings\030\002 \002(\0132\021.polysim.Settings\"m\n\010Sett"
+    "ings\022\t\n\001h\030\007 \002(\001\022\n\n\002sk\030\001 \002(\001\022\n\n\002pk\030\002 \002(\001\022"
+    "\016\n\006stiffk\030\003 \002(\001\022\016\n\006shiftk\030\004 \002(\001\022\016\n\006oseen"
+    "k\030\005 \002(\001\022\016\n\006numpin\030\006 \002(\005", 303);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "polysim.proto", &protobuf_RegisterTypes);
   SPolymer::default_instance_ = new SPolymer();
@@ -937,6 +938,7 @@ void SSim::Swap(SSim* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
+const int Settings::kHFieldNumber;
 const int Settings::kSkFieldNumber;
 const int Settings::kPkFieldNumber;
 const int Settings::kStiffkFieldNumber;
@@ -961,6 +963,7 @@ Settings::Settings(const Settings& from)
 
 void Settings::SharedCtor() {
   _cached_size_ = 0;
+  h_ = 0;
   sk_ = 0;
   pk_ = 0;
   stiffk_ = 0;
@@ -1001,6 +1004,7 @@ Settings* Settings::New() const {
 
 void Settings::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    h_ = 0;
     sk_ = 0;
     pk_ = 0;
     stiffk_ = 0;
@@ -1109,6 +1113,22 @@ bool Settings::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(57)) goto parse_h;
+        break;
+      }
+      
+      // required double h = 7;
+      case 7: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
+         parse_h:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &h_)));
+          set_has_h();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -1161,6 +1181,11 @@ void Settings::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->numpin(), output);
   }
   
+  // required double h = 7;
+  if (has_h()) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(7, this->h(), output);
+  }
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1199,6 +1224,11 @@ void Settings::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->numpin(), target);
   }
   
+  // required double h = 7;
+  if (has_h()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(7, this->h(), target);
+  }
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -1210,6 +1240,11 @@ int Settings::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required double h = 7;
+    if (has_h()) {
+      total_size += 1 + 8;
+    }
+    
     // required double sk = 1;
     if (has_sk()) {
       total_size += 1 + 8;
@@ -1269,6 +1304,9 @@ void Settings::MergeFrom(const ::google::protobuf::Message& from) {
 void Settings::MergeFrom(const Settings& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_h()) {
+      set_h(from.h());
+    }
     if (from.has_sk()) {
       set_sk(from.sk());
     }
@@ -1304,13 +1342,14 @@ void Settings::CopyFrom(const Settings& from) {
 }
 
 bool Settings::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
+  if ((_has_bits_[0] & 0x0000007f) != 0x0000007f) return false;
   
   return true;
 }
 
 void Settings::Swap(Settings* other) {
   if (other != this) {
+    std::swap(h_, other->h_);
     std::swap(sk_, other->sk_);
     std::swap(pk_, other->pk_);
     std::swap(stiffk_, other->stiffk_);
