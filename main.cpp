@@ -20,6 +20,7 @@ int main(int argc, char* argv[]){
 		numsteps = atoi(argv[2]);
 	}
 	int start_step = 0;
+	double step_size = .003;
 	//ofstream outfile("bdata.dat", ios::out | ios::binary | ios::trunc);
 	//cout << sizeof(vect_d);
 	//Polymer * poly = new Polymer(200,vect_d(0,0,0),123);
@@ -63,6 +64,7 @@ int main(int argc, char* argv[]){
 	if(saveSim.system_size() > 0 ){
 		readSaveSim(sim, saveSim);
 		start_step = saveSim.system_size();
+		step_size = saveSim.settings().h();
 	}
 	else{
 		for(int i=0; i<10; i++){
@@ -134,6 +136,7 @@ void readSaveSim(Sim* sim, polysim::SSim& save){
 	sim->oseenk = save.settings().oseenk();
 	sim->shiftk = save.settings().shiftk();
 	sim->numpin = save.settings().numpin();
+	sim->h = save.settings().h()
 	Polymer * poly;
 	for(int i=0; i < savesys.poly_size() ; i++){
 		poly = new Polymer(0);
