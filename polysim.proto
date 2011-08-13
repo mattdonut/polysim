@@ -9,5 +9,15 @@ message SSystem {
 	repeated SPolymer poly = 1;
 }
 message SSim {
-	repeated SSystem system =1;
+	repeated SSystem system = 1;
+    required Settings settings = 2;
+}
+
+message Settings {
+    required double sk = 1;
+    required double pk = 2;
+    required double stiffk = 3;
+    required double shiftk = 4;
+    required double oseenk = 5;
+    required int32 numpin = 6;
 }

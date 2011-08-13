@@ -13,7 +13,7 @@ public:
 class PinBackbone : public Modifier
 {
 public:
-	PinBackbone(vector<Polymer*> sys, double initpk, double initsk, double initstiffk);
+	PinBackbone(vector<Polymer*> sys, double initpk, double initsk, double initstiffk, int numpin);
 	~PinBackbone(void);
 	void Act(vector<Polymer*> sys);
 

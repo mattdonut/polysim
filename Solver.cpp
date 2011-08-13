@@ -9,9 +9,9 @@ Solver::Solver(void)
 Solver::~Solver(void)
 {
 }
-
+//pk, sk = 100, stiffk = 10, oseenk = .1, shiftk = 1
 void
-Solver::initSys(vector<Polymer*> sys)
+Solver::initSys(vector<Polymer*> sys, double initpk, double initsk, double initstiffk, double oseenk, double shiftk, int numpin )
 {
 	sys0.clear();
 	sys1.clear();
@@ -24,9 +24,9 @@ Solver::initSys(vector<Polymer*> sys)
 		sys3.push_back(new Polymer(sys[i]->Length));
 	}
 	mods.clear();
-	mods.push_back(new PinBackbone(sys,100,100,10));
-	mods.push_back(new OseenTensor(sys,.1));
-	mods.push_back(new KinesinShift(1));
+	mods.push_back(new PinBackbone(sys,initpk,initsk,initstiffk,numpin));
+	mods.push_back(new OseenTensor(sys,oseenk));
+	mods.push_back(new KinesinShift(shiftk));
 }
 
 void 

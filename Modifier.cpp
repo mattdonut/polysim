@@ -10,14 +10,16 @@ Modifier::~Modifier(void)
 {
 }
 
-PinBackbone::PinBackbone(vector<Polymer*> sys, double initpk, double initsk, double initstiffk)
+PinBackbone::PinBackbone(vector<Polymer*> sys, double initpk, double initsk, double initstiffk, int numpin)
 {
 	this->pk = initpk;
 	this->sk = initsk;
 	this->stiffk = initstiffk;
 	this->linksize = 1.0;
 	for(unsigned int i=0; i<sys.size() ; i++){
-		pins.push_back(sys[i]->Loc[0]);
+		for(int j=0; j<numpin; j++){
+			pins.push_back(sys[i]->Loc[j]);
+		}
 	}
 }
 void

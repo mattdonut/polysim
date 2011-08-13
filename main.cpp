@@ -69,6 +69,7 @@ int main(int argc, char* argv[]){
 		}
 
 	}
+
 	sim->initSys();
 	sim->sol->SetStepSize(.003);
 	cout << "Going for " << numsteps-start_step << " steps" << endl;
@@ -124,6 +125,12 @@ void savePolys(vector<Polymer*> sys, polysim::SSystem* save){
 void readSaveSim(Sim* sim, polysim::SSim& save){
 	cout<<"reading from file..."<<endl;
 	const polysim::SSystem savesys = save.system(save.system_size()-1);
+	sim->sk = save.settings().sk();
+	sim->pk = save.settings().pk();
+	sim->stiffk = save.settings().stiffk();
+	sim->oseenk = save.settings().oseenk();
+	sim->shiftk = save.settings().shiftk();
+	sim->numpin = save.settings().numpin();
 	Polymer * poly;
 	for(int i=0; i < savesys.poly_size() ; i++){
 		poly = new Polymer(0);

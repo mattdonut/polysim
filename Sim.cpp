@@ -15,7 +15,7 @@ Sim::~Sim(void)
 void
 Sim::initSys(void)
 {
-	sol->initSys(sys);
+	sol->initSys(sys,pk,sk,stiffk,oseenk,shiftk,numpin);
 }
 
 void

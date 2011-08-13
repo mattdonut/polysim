@@ -17,5 +17,7 @@ public:
 	void setOutputFile(char * filename);
 	vector<Polymer*> sys;
 	Solver * sol;
+	double sk, pk, stiffk, oseenk, shiftk;
+	int numpin;
 };
 

@@ -13,7 +13,7 @@ public:
 	Solver(void);
 	~Solver(void);
 
-	void initSys(vector<Polymer*>);
+	void initSys(vector<Polymer*> sys, double initpk, double initsk, double initstiffk, double oseenk, double shiftk, int numpin );
 	void SetStepSize(double);
 	int TakeSteps(int);
 	vector<Modifier*> mods;
