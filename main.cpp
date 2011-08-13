@@ -136,7 +136,6 @@ void readSaveSim(Sim* sim, polysim::SSim& save){
 	sim->oseenk = save.settings().oseenk();
 	sim->shiftk = save.settings().shiftk();
 	sim->numpin = save.settings().numpin();
-	sim->h = save.settings().h()
 	Polymer * poly;
 	for(int i=0; i < savesys.poly_size() ; i++){
 		poly = new Polymer(0);
