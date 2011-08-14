@@ -10,6 +10,7 @@ message SSystem {
 }
 message SSim {
 	repeated SSystem system = 1;
+    repeated SPolymer yolk = 3;
     required Settings settings = 2;
 }
 

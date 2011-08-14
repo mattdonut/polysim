@@ -23,7 +23,7 @@ PinBackbone::PinBackbone(vector<Polymer*> sys, double initpk, double initsk, dou
 	}
 }
 void
-PinBackbone::Act(vector<Polymer*> sys)
+PinBackbone::Act(vector<Polymer*> sys, Polymer* yolk)
 {
 
 	//do the chain forces for each polymer
@@ -74,7 +74,7 @@ KinesinShift::KinesinShift(double ck){
 }
 
 void
-KinesinShift::Act(vector<Polymer*> sys){
+KinesinShift::Act(vector<Polymer*> sys, Polymer* yolk){
 
 	for(unsigned int i=0; i<sys.size() ; i++){
 		for(int j=1; j<sys[i]->Length-1; j++){
@@ -92,7 +92,7 @@ OseenTensor::OseenTensor(vector<Polymer*> csys, double ck){
 	}
 }
 void
-OseenTensor::Act(vector<Polymer*> sys){
+OseenTensor::Act(vector<Polymer*> sys, Polymer* yolk){
 	for(unsigned int n=0; n < sys.size(); n++){
 		for(int i=0; i<sys[n]->Length; i++){
 			tempsys[n]->Vel[i].set(0,0,0);
@@ -145,11 +145,11 @@ OseenTensor::Act(vector<Polymer*> sys){
 						tempsys[n]->Vel[i] += (sys[m]->Vel[j] + hardcore + (dif * (dif*(sys[m]->Vel[j]+hardcore)))*(1.0/normsq) )*(k/norm);
 					}
 					else{
-						hardcore = dif*0.0;
-						tempsys[n]->Vel[i] += sys[m]->Vel[j]+hardcore;
+						//hardcore = dif*0.0;
+						tempsys[n]->Vel[i] += sys[m]->Vel[j];//+hardcore;
 					}
 					//now to include a wall
-					
+					/*
 					if( i!=j || m!=n ){
 						mirVel = sys[m]->Vel[j]+hardcore;
 						mirVel.setZ(-mirVel.zcomp());
@@ -162,13 +162,51 @@ OseenTensor::Act(vector<Polymer*> sys){
 												)
 											) * (k/mirnorm);
 					}
-					
+					*/
 											
 				}
-			}
+			} //end inner loop
+			for(int j=0;j<yolk->Length;j++){
+					dif = sys[n]->Loc[i] - yolk->Loc[j];
+					normsq = dif*dif;
+					norm = sqrt(normsq);
+					//wall calculation caching
+					mirdif = dif;
+					mirdif.setZ(sys[n]->Loc[i].zcomp() + yolk->Loc[j].zcomp());
+					mirnormsq = mirdif*mirdif;
+					//mirnorm4 = mirnormsq*mirnormsq;
+					mirnorm = sqrt(mirnormsq);
+					h = sys[n]->Loc[i].zcomp();
 
+					vect_d hardcore;
+
+					//hardcore repulsion
+					if( norm < .5 ){
+						hardcore = (1.0 - 1.0/(normsq*normsq*16.0))*dif;//tempsys[n]->Vel[i] += (1.0 - 1.0/(normsq*normsq*16.0))*dif;
+					}
+					else{
+						hardcore = dif*0.0;
+					}
+					//calculate the oseen tensor
+
+					yolk->Vel[j] += (sys[n]->Vel[i] + hardcore + (dif * (dif*(sys[n]->Vel[i]+hardcore)))*(1.0/normsq) )*(k/norm);
+
+					//now to include a wall
+					/*
+					mirVel = sys[n]->Vel[i]+hardcore;
+					mirVel.setZ(-mirVel.zcomp());
+					mVeldotmDif = mirVel*mirdif;
+					yolk->Vel[j] += ( -1.0*(sys[n]->Vel[i]+hardcore +(mirdif * (mirdif*(sys[n]->Vel[i]+hardcore)))*(1.0/mirnormsq) ) //reflected oseen
+											+ (2*h/mirnormsq)*(
+												- (yolk->Loc[j].zcomp())*mirVel //mirrored force direction
+												+ (3*mVeldotmDif*yolk->Loc[j].zcomp()/mirnormsq - mirVel.zcomp())*mirdif //mirrored position direction
+												+ (mVeldotmDif)*z_hat //z_hat component correction
+											)
+										) * (k/mirnorm);
+					*/
+			}
 		}
-	}
+	} //end outer loop
 	for(unsigned int n=0; n < sys.size(); n++){
 		for(int i=0; i<sys[n]->Length; i++){
 			sys[n]->Vel[i] = tempsys[n]->Vel[i];

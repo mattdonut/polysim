@@ -13,6 +13,7 @@ using namespace std;
 void outputPolys(vector<Polymer*>, ofstream&);
 void savePolys(vector<Polymer*>, polysim::SSystem*);
 void readSaveSim(Sim* sim, polysim::SSim& save);
+void saveYolk(Polymer*,polysim::SPolymer*);
 int main(int argc, char* argv[]){
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
 	int numsteps = 100;
@@ -87,6 +88,7 @@ int main(int argc, char* argv[]){
 		cout << steps << endl;
 		cout<< "Saving progress, do not interupt!"<<endl;
 		savePolys(sim->sys, saveSim.add_system());
+		saveYolk(sim->yolk, saveSim.add_yolk());
 		soutput.open(argv[1], ios::out | ios::trunc | ios::binary);
 		if (!saveSim.SerializeToOstream(&soutput)) {
 			cout << "FAIL OUTPUT" << endl;
@@ -127,6 +129,13 @@ void savePolys(vector<Polymer*> sys, polysim::SSystem* save){
 
 	}
 }
+void saveYolk(Polymer* yolk, polysim::SPolymer* syolk){
+	for( int  i=0; i<yolk->Length ; i++){
+		syolk->add_x(yolk->Loc[i].xcomp());
+		syolk->add_y(yolk->Loc[i].ycomp());
+		syolk->add_z(yolk->Loc[i].zcomp());
+	}
+}
 void readSaveSim(Sim* sim, polysim::SSim& save){
 	cout<<"reading from file..."<<endl;
 	const polysim::SSystem savesys = save.system(save.system_size()-1);
@@ -144,5 +153,10 @@ void readSaveSim(Sim* sim, polysim::SSim& save){
 			poly->pushMonomer(savepoly.x(j),savepoly.y(j),savepoly.z(j));
 		}
 		sim->addPolymer(poly);
+	}
+	const polysim::SPolymer saveyolk = save.yolk(save.yolk_size()-1);
+	sim->yolk = new Polymer(0);
+	for(int i=0; i < saveyolk.x_size(); i++){
+		sim->yolk->pushMonomer(saveyolk.x(i),saveyolk.y(i),saveyolk.z(i));
 	}
 }

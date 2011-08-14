@@ -16,6 +16,7 @@ public:
 	void initSys(void);
 	void setOutputFile(char * filename);
 	vector<Polymer*> sys;
+	Polymer * yolk;
 	Solver * sol;
 	double sk, pk, stiffk, oseenk, shiftk;
 	int numpin;

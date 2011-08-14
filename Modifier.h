@@ -7,7 +7,7 @@ class Modifier
 public:
 	Modifier(void);
 	~Modifier(void);
-	virtual void Act(vector<Polymer*> sys) = 0;
+	virtual void Act(vector<Polymer*> sys, Polymer* yolk) = 0;
 };
 
 class PinBackbone : public Modifier
@@ -15,7 +15,7 @@ class PinBackbone : public Modifier
 public:
 	PinBackbone(vector<Polymer*> sys, double initpk, double initsk, double initstiffk, int numpin);
 	~PinBackbone(void);
-	void Act(vector<Polymer*> sys);
+	void Act(vector<Polymer*> sys, Polymer* yolk);
 
 	double pk, sk, stiffk, linksize;
 	double mag1, mag2;
@@ -28,7 +28,7 @@ class OseenTensor : public Modifier
 public:
 	OseenTensor(vector<Polymer*>,double);
 	~OseenTensor(void);
-	void Act(vector<Polymer*> sys);
+	void Act(vector<Polymer*> sys, Polymer* yolk);
 
 	vector<Polymer*> tempsys;
 	double k, norm, normsq;
@@ -42,7 +42,7 @@ class KinesinShift : public Modifier
 public:
 	KinesinShift(double);
 	~KinesinShift(void);
-	void Act(vector<Polymer*> sys);
+	void Act(vector<Polymer*> sys, Polymer* yolk);
 
 	double k;
 };

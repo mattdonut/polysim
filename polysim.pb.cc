@@ -72,8 +72,9 @@ void protobuf_AssignDesc_polysim_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SSystem));
   SSim_descriptor_ = file->message_type(2);
-  static const int SSim_offsets_[2] = {
+  static const int SSim_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSim, system_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSim, yolk_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSim, settings_),
   };
   SSim_reflection_ =
@@ -152,12 +153,13 @@ void protobuf_AddDesc_polysim_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\rpolysim.proto\022\007polysim\"+\n\010SPolymer\022\t\n\001"
     "x\030\001 \003(\001\022\t\n\001y\030\002 \003(\001\022\t\n\001z\030\003 \003(\001\"*\n\007SSystem"
-    "\022\037\n\004poly\030\001 \003(\0132\021.polysim.SPolymer\"M\n\004SSi"
-    "m\022 \n\006system\030\001 \003(\0132\020.polysim.SSystem\022#\n\010s"
-    "ettings\030\002 \002(\0132\021.polysim.Settings\"m\n\010Sett"
-    "ings\022\t\n\001h\030\007 \002(\001\022\n\n\002sk\030\001 \002(\001\022\n\n\002pk\030\002 \002(\001\022"
-    "\016\n\006stiffk\030\003 \002(\001\022\016\n\006shiftk\030\004 \002(\001\022\016\n\006oseen"
-    "k\030\005 \002(\001\022\016\n\006numpin\030\006 \002(\005", 303);
+    "\022\037\n\004poly\030\001 \003(\0132\021.polysim.SPolymer\"n\n\004SSi"
+    "m\022 \n\006system\030\001 \003(\0132\020.polysim.SSystem\022\037\n\004y"
+    "olk\030\003 \003(\0132\021.polysim.SPolymer\022#\n\010settings"
+    "\030\002 \002(\0132\021.polysim.Settings\"m\n\010Settings\022\t\n"
+    "\001h\030\007 \002(\001\022\n\n\002sk\030\001 \002(\001\022\n\n\002pk\030\002 \002(\001\022\016\n\006stif"
+    "fk\030\003 \002(\001\022\016\n\006shiftk\030\004 \002(\001\022\016\n\006oseenk\030\005 \002(\001"
+    "\022\016\n\006numpin\030\006 \002(\005", 336);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "polysim.proto", &protobuf_RegisterTypes);
   SPolymer::default_instance_ = new SPolymer();
@@ -682,6 +684,7 @@ void SSystem::Swap(SSystem* other) {
 
 #ifndef _MSC_VER
 const int SSim::kSystemFieldNumber;
+const int SSim::kYolkFieldNumber;
 const int SSim::kSettingsFieldNumber;
 #endif  // !_MSC_VER
 
@@ -737,12 +740,13 @@ SSim* SSim::New() const {
 }
 
 void SSim::Clear() {
-  if (_has_bits_[1 / 32] & (0xffu << (1 % 32))) {
+  if (_has_bits_[2 / 32] & (0xffu << (2 % 32))) {
     if (has_settings()) {
       if (settings_ != NULL) settings_->::polysim::Settings::Clear();
     }
   }
   system_.Clear();
+  yolk_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -778,6 +782,21 @@ bool SSim::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(26)) goto parse_yolk;
+        break;
+      }
+      
+      // repeated .polysim.SPolymer yolk = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_yolk:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_yolk()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_yolk;
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -812,6 +831,12 @@ void SSim::SerializeWithCachedSizes(
       2, this->settings(), output);
   }
   
+  // repeated .polysim.SPolymer yolk = 3;
+  for (int i = 0; i < this->yolk_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->yolk(i), output);
+  }
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -834,6 +859,13 @@ void SSim::SerializeWithCachedSizes(
         2, this->settings(), target);
   }
   
+  // repeated .polysim.SPolymer yolk = 3;
+  for (int i = 0; i < this->yolk_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->yolk(i), target);
+  }
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -844,7 +876,7 @@ void SSim::SerializeWithCachedSizes(
 int SSim::ByteSize() const {
   int total_size = 0;
   
-  if (_has_bits_[1 / 32] & (0xffu << (1 % 32))) {
+  if (_has_bits_[2 / 32] & (0xffu << (2 % 32))) {
     // required .polysim.Settings settings = 2;
     if (has_settings()) {
       total_size += 1 +
@@ -859,6 +891,14 @@ int SSim::ByteSize() const {
     total_size +=
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         this->system(i));
+  }
+  
+  // repeated .polysim.SPolymer yolk = 3;
+  total_size += 1 * this->yolk_size();
+  for (int i = 0; i < this->yolk_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->yolk(i));
   }
   
   if (!unknown_fields().empty()) {
@@ -887,7 +927,8 @@ void SSim::MergeFrom(const ::google::protobuf::Message& from) {
 void SSim::MergeFrom(const SSim& from) {
   GOOGLE_CHECK_NE(&from, this);
   system_.MergeFrom(from.system_);
-  if (from._has_bits_[1 / 32] & (0xffu << (1 % 32))) {
+  yolk_.MergeFrom(from.yolk_);
+  if (from._has_bits_[2 / 32] & (0xffu << (2 % 32))) {
     if (from.has_settings()) {
       mutable_settings()->::polysim::Settings::MergeFrom(from.settings());
     }
@@ -908,7 +949,7 @@ void SSim::CopyFrom(const SSim& from) {
 }
 
 bool SSim::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
+  if ((_has_bits_[0] & 0x00000004) != 0x00000004) return false;
   
   if (has_settings()) {
     if (!this->settings().IsInitialized()) return false;
@@ -919,6 +960,7 @@ bool SSim::IsInitialized() const {
 void SSim::Swap(SSim* other) {
   if (other != this) {
     system_.Swap(&other->system_);
+    yolk_.Swap(&other->yolk_);
     std::swap(settings_, other->settings_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

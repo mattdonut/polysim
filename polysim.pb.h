@@ -301,6 +301,18 @@ class SSim : public ::google::protobuf::Message {
   inline ::google::protobuf::RepeatedPtrField< ::polysim::SSystem >*
       mutable_system();
   
+  // repeated .polysim.SPolymer yolk = 3;
+  inline int yolk_size() const;
+  inline void clear_yolk();
+  static const int kYolkFieldNumber = 3;
+  inline const ::polysim::SPolymer& yolk(int index) const;
+  inline ::polysim::SPolymer* mutable_yolk(int index);
+  inline ::polysim::SPolymer* add_yolk();
+  inline const ::google::protobuf::RepeatedPtrField< ::polysim::SPolymer >&
+      yolk() const;
+  inline ::google::protobuf::RepeatedPtrField< ::polysim::SPolymer >*
+      mutable_yolk();
+  
   // required .polysim.Settings settings = 2;
   inline bool has_settings() const;
   inline void clear_settings();
@@ -317,10 +329,11 @@ class SSim : public ::google::protobuf::Message {
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
   ::google::protobuf::RepeatedPtrField< ::polysim::SSystem > system_;
+  ::google::protobuf::RepeatedPtrField< ::polysim::SPolymer > yolk_;
   ::polysim::Settings* settings_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
   
   friend void  protobuf_AddDesc_polysim_2eproto();
   friend void protobuf_AssignDesc_polysim_2eproto();
@@ -611,15 +624,40 @@ SSim::mutable_system() {
   return &system_;
 }
 
+// repeated .polysim.SPolymer yolk = 3;
+inline int SSim::yolk_size() const {
+  return yolk_.size();
+}
+inline void SSim::clear_yolk() {
+  yolk_.Clear();
+}
+inline const ::polysim::SPolymer& SSim::yolk(int index) const {
+  return yolk_.Get(index);
+}
+inline ::polysim::SPolymer* SSim::mutable_yolk(int index) {
+  return yolk_.Mutable(index);
+}
+inline ::polysim::SPolymer* SSim::add_yolk() {
+  return yolk_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::polysim::SPolymer >&
+SSim::yolk() const {
+  return yolk_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::polysim::SPolymer >*
+SSim::mutable_yolk() {
+  return &yolk_;
+}
+
 // required .polysim.Settings settings = 2;
 inline bool SSim::has_settings() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void SSim::set_has_settings() {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
 }
 inline void SSim::clear_has_settings() {
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline void SSim::clear_settings() {
   if (settings_ != NULL) settings_->::polysim::Settings::Clear();
