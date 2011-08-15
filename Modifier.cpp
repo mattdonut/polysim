@@ -149,7 +149,7 @@ OseenTensor::Act(vector<Polymer*> sys, Polymer* yolk){
 						tempsys[n]->Vel[i] += sys[m]->Vel[j];//+hardcore;
 					}
 					//now to include a wall
-					/*
+					
 					if( i!=j || m!=n ){
 						mirVel = sys[m]->Vel[j]+hardcore;
 						mirVel.setZ(-mirVel.zcomp());
@@ -162,7 +162,7 @@ OseenTensor::Act(vector<Polymer*> sys, Polymer* yolk){
 												)
 											) * (k/mirnorm);
 					}
-					*/
+					
 											
 				}
 			} //end inner loop
@@ -192,7 +192,7 @@ OseenTensor::Act(vector<Polymer*> sys, Polymer* yolk){
 					yolk->Vel[j] += (sys[n]->Vel[i] + hardcore + (dif * (dif*(sys[n]->Vel[i]+hardcore)))*(1.0/normsq) )*(k/norm);
 
 					//now to include a wall
-					/*
+					
 					mirVel = sys[n]->Vel[i]+hardcore;
 					mirVel.setZ(-mirVel.zcomp());
 					mVeldotmDif = mirVel*mirdif;
@@ -203,7 +203,7 @@ OseenTensor::Act(vector<Polymer*> sys, Polymer* yolk){
 												+ (mVeldotmDif)*z_hat //z_hat component correction
 											)
 										) * (k/mirnorm);
-					*/
+					
 			}
 		}
 	} //end outer loop
