@@ -118,7 +118,7 @@ OseenTensor::Act(vector<Polymer*> sys, Polymer* yolk){
 					mirnormsq = mirdif*mirdif;
 					//mirnorm4 = mirnormsq*mirnormsq;
 					mirnorm = sqrt(mirnormsq);
-					h = sys[m]->Loc[j].zcomp();
+					h = sys[n]->Loc[i].zcomp();
 
 					//hminusz = h - mirdif.zcomp();
 					vect_d hardcore;
@@ -176,7 +176,7 @@ OseenTensor::Act(vector<Polymer*> sys, Polymer* yolk){
 					mirnormsq = mirdif*mirdif;
 					//mirnorm4 = mirnormsq*mirnormsq;
 					mirnorm = sqrt(mirnormsq);
-					h = sys[n]->Loc[i].zcomp();
+					h = yolk->Loc[j].zcomp();
 
 					vect_d hardcore;
 
