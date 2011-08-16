@@ -16,6 +16,7 @@ PinBackbone::PinBackbone(vector<Polymer*> sys, double initpk, double initsk, dou
 	this->sk = initsk;
 	this->stiffk = initstiffk;
 	this->linksize = 1.0;
+	this->numpin = numpin;
 	for(unsigned int i=0; i<sys.size() ; i++){
 		for(int j=0; j<numpin; j++){
 			pins.push_back(sys[i]->Loc[j]);
@@ -54,7 +55,9 @@ PinBackbone::Act(vector<Polymer*> sys, Polymer* yolk)
 		sys[i]->Vel[sys[i]->Length-1] += (sys[i]->Loc[sys[i]->Length-1] - sys[i]->Loc[sys[i]->Length-3])*stiffk;
 
 		//finally, pin the first point to its initial location
-		sys[i]->Vel[0] += (pins[i] - sys[i]->Loc[0])*pk;
+		for(int j=0; j<numpin; j++){
+			sys[i]->Vel[j] += (pins[i*numpin + j] - sys[i]->Loc[j])*pk;
+		}
 		//cout << sys[i]->Loc[0];
 
 		//wall repulsion

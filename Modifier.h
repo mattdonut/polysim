@@ -19,6 +19,7 @@ public:
 
 	double pk, sk, stiffk, linksize;
 	double mag1, mag2;
+	int numpin;
 	vect_d f1, f2;
 	vector<vect_d> pins;
 };
