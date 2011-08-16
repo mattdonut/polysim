@@ -82,7 +82,7 @@ int main(int argc, char* argv[]){
 	//output << "[";
 	for(int steps=start_step; steps < start_step+numsteps; steps++){
 		cout<<"Starting steps..."<<endl;
-		sim->takeSteps(100);
+		sim->takeSteps(200);
 		//outputPolys(sim->sys, output);
 		//output << ",";
 		cout << steps << endl;
